@@ -19,53 +19,7 @@ share: true
 
 ---
 
-## 1. IAM 이란?
-
-AWS 서비스와 리소스에 대한 액세스를 제어하는 서비스
-
-<br>
-
-**IAM으로 할 수 있는 것은?**
-
-1. AWS 서비스와 리소스에 대한 액세스를 안전하게 관리가 가능함
-2. AWS 사용자 및 그룹을 만들고 관리할 수 있음
-3. 권한을 사용해 AWS 리소스에 대한 액세스를 허용 및 거부가 가능함
-
-<br>
-
-**IAM의 장점**
-
-1. AWS 리소스에 대한 사용자의 액세스를 세부적으로 제어 가능
-2. 대부분의 AWS 서비스 내에 통합되어 있음
-3. 유연한 보안 자격 증명 관리
-4. 기존 자격 증명 시스템을 활용할 수 있음(Federation)
-5. AWS 계정에서 추가 비용 없이 사용 가능
-
-<br>
-
-## 2. AWS의 AAA(Authentication, Authorization, Audit)
-
-**인증(Authentication) -> 신원확인**
-
-Authentication <-> AWS IAM
-사용자 이름/PW(+MFA;Multi Factor Authentication), Access Key(+MFA), Federation 등을 통해 인증을 수행
-
-<br>
-
-**인가(Authorization) -> 권한확인**
-
-AWS IAM <-> Authorization
-Policy를 통해 인가를 확인
-
-<br>
-
-**감사(Audit) -> 기록**
-
-CloudTrail 서비스를 이용함
-
-<br>
-
-## 3. IAM을 이용하는 방법
+## 1. AWS 서비스를 사용하는 방법 
 
 1. Console 기반
    - Console 기반으로 작업할 경우 쉽게 사용할 수 있지만, 반복작업이 어렵고 시간이 오래걸림
@@ -92,15 +46,53 @@ CloudTrail 서비스를 이용함
 
 **결국 중요한 건 API!!**, API를 보호하기 위해 AWS는 SigV4를 이용하고 있다. 시간, 리전, 어떤 서비스를 호출하는지 등의 정보를 API 호출에 함께 전송한다. CLI나 SDK 사용 시 자동으로 포함되어 전송되기 때문에 따로 신경쓸 필요가 없지만, 별도로 개발하여 이용할 경우 데이터 전송 시 Signature를 생성해 같이 전송해야 한다.
 
+## 2. AWS의 AAA(Authentication, Authorization, Audit)
+
+**인증(Authentication) → 신원확인**
+
+Authentication ↔︎ AWS IAM
+사용자 이름/PW(+MFA;Multi Factor Authentication), Access Key(+MFA), Federation 등을 통해 인증을 수행
+
 <br>
 
-## 4. IAM Policy(Identity & Access Management)
+**인가(Authorization) → 권한확인**
+
+AWS IAM ↔︎ Authorization
+Policy를 통해 인가를 확인
+
+<br>
+
+**감사(Audit) → 기록**
+
+CloudTrail 서비스를 이용함
+
+<br>
+
+## 3. IAM Policy
 
 AWS 서비스와 리소스에 대한 인가 기능을 제공한다.
 
 Policy를 정의할 때 어떤 IAM Principal이 어떤 Condition에서 AWS의 어떤 Resource에 대해 어떤 Action을 허용 혹은 차단할 것인지를 지정
 
 IAM이 정의한 Policy를 기반으로 API 요청을 검사/평가하게되며 최종적으로 허용 혹은 차단을 결정하게된다.
+
+<br>
+
+**IAM으로 할 수 있는 것은?**
+
+1. AWS 서비스와 리소스에 대한 액세스를 안전하게 관리가 가능함
+2. AWS 사용자 및 그룹을 만들고 관리할 수 있음
+3. 권한을 사용해 AWS 리소스에 대한 액세스를 허용 및 거부가 가능함
+
+<br>
+
+**IAM의 장점**
+
+1. AWS 리소스에 대한 사용자의 액세스를 세부적으로 제어 가능
+2. 대부분의 AWS 서비스 내에 통합되어 있음
+3. 유연한 보안 자격 증명 관리
+4. 기존 자격 증명 시스템을 활용할 수 있음(Federation)
+5. AWS 계정에서 추가 비용 없이 사용 가능
 
 <br>
 
@@ -178,7 +170,7 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 
 <br>
 
-## 5. IAM 권한 할당 원리의 이해
+## 4. IAM 권한 할당 원리의 이해
 
 1. 명시적 Deny, 묵시적 Deny
 - API 요청 시 조건이 Deny로 설정되어있으면 명시적 Deny
@@ -202,7 +194,7 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 
 <br>
 
-## 6. IAM Role이란?
+## 5. IAM Role이란?
 
 - AWS의 작업과 리소스에 대한 액세스를 부여하는 권한 세트
 - 정의된 권한을 다른 사용자나 서비스로 위임
@@ -233,16 +225,7 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
    
 <br>
 
-
-AWS WAF(CF, ALB, API Gateway)
-Shield Advanced(CF, R53, ALB, ELB, EIP(NLB, EC2), Global Accelerator)
-이제는 CloudFront 사용하지 않고 사용 가능
-
-Shield Advanced 사용시 AWS WAF는 무료
-
-<br>
-
-## 7. Audit
+## 6. Audit
 
 - CloudTrail을 이용해 모든 Log를 모아 한곳으로
    - 유저를 6가지로 나누어 기록
@@ -257,7 +240,7 @@ Shield Advanced 사용시 AWS WAF는 무료
 
 <br>
 
-## 8. AWS IAM 모범사례 TOP10
+## 7. AWS IAM 모범사례 TOP10
 
 ### 1. Users - 개별 사용자 생성
 **Do**
