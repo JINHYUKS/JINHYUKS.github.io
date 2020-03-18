@@ -181,12 +181,10 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 2. 명시적 허용
 - 명시적 Deny가 없어야하고 Permission Boundary와 Permission Policy에 명시적으로 허용되어 있어야 함.  
 
-<br>
-
-1. 권한을 확인하는 순서
+3. 권한을 확인하는 순서
 - 명시적 Deny → SCP → Permission Boundary → Permission Policy → Resource Policy
 
-2. 권한의 획득 조건
+4. 권한의 획득 조건
 - Or 조건 : 중첩된 조건을 모두 허용하게 됨.
     - Permission Policy, Resource Policy
 - And 조건 : 조건이 겹쳐지는 부분만을 허용하게 됨.
@@ -218,6 +216,7 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 **IAM 정책 생성 자동화**
 
 1. Access Advisor를 활용한 미사용 권한 탐지
+
 - Access Advisor
     - 최대 1년간의 기간동안 저장된 데이터 기준으로 마지막 접속 서비스에 대한 정보를 제공
     - Access Advisor 정보를 API를 통해 조회 가능(자동화가 가능해짐)
