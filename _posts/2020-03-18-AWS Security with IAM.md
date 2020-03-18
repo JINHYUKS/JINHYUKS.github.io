@@ -220,6 +220,7 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - Access Advisor
     - 최대 1년간의 기간동안 저장된 데이터 기준으로 마지막 접속 서비스에 대한 정보를 제공
     - Access Advisor 정보를 API를 통해 조회 가능(자동화가 가능해짐)
+
 - 오픈 소스를 활용한 IAM 권한 관리
     - Ardvark : IAM의 Access Advisor 정보를 조회
     - Repokid : 불필요한 권한 삭제
