@@ -32,8 +32,8 @@ share: true
    - 반복작업에 적합
    - 에러 발생 시 원복이 쉬움
    - 최초 구현이 어려움
-   - AWS ColudFormation template(JSON/YAML) -> AWS CloudFormation
-   - Third Party Engine(HashiCorp Configuration Language(HCL)) -> Terraform
+   - AWS ColudFormation template(JSON/YAML) → AWS CloudFormation
+   - 3rd Party Engine(HashiCorp Configuration Language(HCL)) → Terraform
 
 4. DOM 모델 적용
    - 코드 기반으로 사용 가능
@@ -45,6 +45,8 @@ share: true
 <br>
 
 **결국 중요한 건 API!!**, API를 보호하기 위해 AWS는 SigV4를 이용하고 있다. 시간, 리전, 어떤 서비스를 호출하는지 등의 정보를 API 호출에 함께 전송한다. CLI나 SDK 사용 시 자동으로 포함되어 전송되기 때문에 따로 신경쓸 필요가 없지만, 별도로 개발하여 이용할 경우 데이터 전송 시 Signature를 생성해 같이 전송해야 한다.
+
+<br>
 
 ## 2. AWS의 AAA(Authentication, Authorization, Audit)
 
@@ -182,15 +184,14 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 <br>
 
 1. 권한을 확인하는 순서
-
-명시적 Deny - SCP - Permission Boundary - Permission Policy - Resource Policy
+- 명시적 Deny → SCP → Permission Boundary → Permission Policy → Resource Policy
 
 2. 권한의 획득 조건
 - Or 조건 : 중첩된 조건을 모두 허용하게 됨.
-   - Permission Policy, Resource Policy
+    - Permission Policy, Resource Policy
 - And 조건 : 조건이 겹쳐지는 부분만을 허용하게 됨.
-   - Permission Boundary, Permission Policy
-   - Permission Boundary, Permission Policy, Service Control Policy, Session Policy
+    - Permission Boundary, Permission Policy
+    - Permission Boundary, Permission Policy, Service Control Policy, Session Policy
 
 <br>
 
@@ -199,6 +200,8 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - AWS의 작업과 리소스에 대한 액세스를 부여하는 권한 세트
 - 정의된 권한을 다른 사용자나 서비스로 위임
 - AWS IAM users 또는 AWS services는 role에서 정의된 권한범위 내 AWS API를 사용할 수 있는 'temporary security credentials'를 얻을 수 있음
+
+<br>
 
 **Role을 사용할 때의 장점**
 1. 보안자격증명을 공유할 필요가 없기 때문에 보안이 향상된다.(임시보안자격증명 사용)
@@ -215,13 +218,12 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 **IAM 정책 생성 자동화**
 
 1. Access Advisor를 활용한 미사용 권한 탐지
-
 - Access Advisor
-   - 최대 1년간의 기간동안 저장된 데이터 기준으로 마지막 접속 서비스에 대한 정보를 제공
-   - Access Advisor 정보를 API를 통해 조회 가능(자동화가 가능해짐)
+    - 최대 1년간의 기간동안 저장된 데이터 기준으로 마지막 접속 서비스에 대한 정보를 제공
+    - Access Advisor 정보를 API를 통해 조회 가능(자동화가 가능해짐)
 - 오픈 소스를 활용한 IAM 권한 관리
-   - Ardvark : IAM의 Access Advisor 정보를 조회
-   - Repokid : 불필요한 권한 삭제
+    - Ardvark : IAM의 Access Advisor 정보를 조회
+    - Repokid : 불필요한 권한 삭제
    
 <br>
 
@@ -247,8 +249,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - 관리자 스스로도 AWS IAM 사용자 생성하여 그것을 이용
 - 다른 사람들에게도 각각 사용자 생성하여 이용하도록 함
 
-<br>
-
 **Benefit**
 - 개별 자격증명 세트 관리
 - 개별 권한 부여
@@ -261,8 +261,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 **Do**
 - 암호 만료 기한 설정
 - 암호 정책은 강력하게
-
-<br>
 
 **Benefit**
 - 사용자와 그 데이터가 안전하게 보호됨
@@ -277,8 +275,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - 보안 자격 증명 순환 여부 확인/감사를 위해 Credential Report 를 활용
 - Credential Report의 Access Key Last Used 컬럼을 통해 일정 기간동안 사용되지 않은 자격증명을 찾아내고 비활성화 시킴
 
-<br>
-
 **Benefit**
 - 인가되지 않은 접근의 가능성을 최대한 낮춰줌
 - 오래된 키가 도난당하거나 잃어버린 상태라고 해도 그 키를 통해 데이터에 접근하는 것을 방지할 수 있음
@@ -289,8 +285,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 **Do**
 - Root account에 대하여 MFA활성화
 - 민감한 action들에 대해서는 MFA로 보호
-
-<br>
 
 **Benefit**
 - 추가적인 보호막 제공
@@ -303,8 +297,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - 업무 기능과 연관된 그룹을 생성
 - 그룹에 정책들을 붙임
 - 그룹 멤버십을 권한 부여/회수하는데 사용
-
-<br>
 
 **Benefit**
 - 사용자 증가에 따라 늘어나는 접근 제어 관리의 복잡도를 감소시킬 수 있음
@@ -321,8 +313,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - 정기적으로 Access Advisor를 체크하여 권한을 제한
 - Resource-based 정책을 이용해 특정 resource에 대한 접근 제어
 
-<br>
-
 **Benefit**
 - 실수로 특권을 행사할 가능성을 최소화
 - 서서히 풀어주는 것이 갑자기 조이는 것보다 쉬움
@@ -337,8 +327,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
   - 동일 계정 내에 접근권한 위임
   - 연동된 사용자
 
-<br>
-
 **Benefit**
 - 보안 자격증명을 더 이상 공유할 필요 없음
 - 장기 자격증명을 보관할 필요 없음
@@ -350,8 +338,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 **Do**
 - 장기 자격증명을 사용하지 말고 Role을 사용
 - 어플리케이션에 최소한의 권한만을 부여
-
-<br>
 
 **Benefit**
 - EC2 instances 상의 access keys를 관리하기 쉬움
@@ -367,8 +353,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - AWS CloudTrail에서 Log File Validation가 활성화 되어 있는 것을 확인
 - CloudTrail 로그를 저장하는 Amazon S3 버킷이 퍼블릭하게 접속 가능하지 않도록 설정
 
-<br>
-
 **Benefit**
 - 각 계정의 API활동내역을 모니터링 할 수 있음
 - 보안 분석, 리소스 분석, 컴플라이언스 감사 등을 가능하게 함
@@ -380,8 +364,6 @@ IAM Policy에는 두 가지 기반의 정책이 있다.
 - Root account 사용자에 대한 MFA 활성화
 - 가능하면, root access keys를 삭제
 - 각 계정들에 대하여 안전한(강력한) 비밀번호 사용
-
-<br> 
 
 **Benefit**
 - 우발적인 변경 및 고도의 권한이 부여 된 자격증명의 의도하지 않은 노출과 같은 위험을 줄임
